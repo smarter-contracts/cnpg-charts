@@ -1,4 +1,4 @@
-{{- if and .Values.backups.enabled (eq .Values.backups.provider "google") }}
+{{- if and .Values.backups.enabled (eq .Values.backups.provider "google") (.Values.recovery.google.applicationCredentials) }}
 apiVersion: v1
 kind: Secret
 metadata:

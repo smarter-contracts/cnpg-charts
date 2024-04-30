@@ -59,8 +59,10 @@
   {{- end }}
   googleCredentials:
     gkeEnvironment: {{ .scope.google.gkeEnvironment }}
+    {{- if .scope.google.applicationCredentials }}
     applicationCredentials:
       name: {{ .chartFullname }}-backup-google{{ .secretSuffix }}-creds
       key: APPLICATION_CREDENTIALS
+    {{- end }}
 {{- end -}}
 {{- end -}}

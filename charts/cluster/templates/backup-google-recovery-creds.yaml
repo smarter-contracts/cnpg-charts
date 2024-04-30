@@ -1,4 +1,4 @@
-{{- if and (eq .Values.mode "recovery" ) (eq .Values.recovery.method "object_store") (eq .Values.recovery.provider "google") }}
+{{- if and .Values.google (eq .Values.mode "recovery") (eq .Values.recovery.method "object_store") (eq .Values.recovery.provider "google") .Values.recovery.google.applicationCredentials }}
 apiVersion: v1
 kind: Secret
 metadata:

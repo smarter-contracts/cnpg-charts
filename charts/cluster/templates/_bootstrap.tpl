@@ -31,11 +31,11 @@ bootstrap:
     backup:
       name: {{ .Values.recovery.backupName }}
     {{- else if eq .Values.recovery.method "object_store" }}
-    source: objectStoreRecoveryCluster
+    source: "{{ .Values.recovery.source | default "objectStoreRecoveryCluster" }}"
     {{- end }}
 
 externalClusters:
-  - name: objectStoreRecoveryCluster
+  - name: "{{ .Values.recovery.source | default "objectStoreRecoveryCluster" }}"
     barmanObjectStore:
       serverName: {{ .Values.recovery.clusterName }}
       {{- $d := dict "chartFullname" (include "cluster.fullname" .) "scope" .Values.recovery "secretSuffix" "-recovery" -}}
