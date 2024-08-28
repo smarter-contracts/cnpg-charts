@@ -33,6 +33,12 @@ bootstrap:
     {{- else if eq .Values.recovery.method "object_store" }}
     source: "{{ .Values.recovery.source | default "objectStoreRecoveryCluster" }}"
     {{- end }}
+    {{- with .Values.recovery.database }}
+    database: {{ . }}
+    {{- end }}
+    {{- with .Values.recovery.owner }}
+    owner: {{ . }}
+    {{- end }}
 
 externalClusters:
   - name: "{{ .Values.recovery.source | default "objectStoreRecoveryCluster" }}"
