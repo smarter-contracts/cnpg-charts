@@ -1,6 +1,6 @@
 # cluster
 
-![Version: 0.0.8](https://img.shields.io/badge/Version-0.0.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.9](https://img.shields.io/badge/Version-0.0.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 > **Warning**
 > ### This chart is under active development.
@@ -143,6 +143,8 @@ refer to  the [CloudNativePG Documentation](https://cloudnative-pg.io/documentat
 | backups.scheduledBackups[0].method | string | `"barmanObjectStore"` | Backup method, can be `barmanObjectStore` (default) or `volumeSnapshot` |
 | backups.scheduledBackups[0].name | string | `"daily-backup"` | Scheduled backup name |
 | backups.scheduledBackups[0].schedule | string | `"0 0 0 * * *"` | Schedule in cron format |
+| backups.secret.create | bool | `true` | Whether to create a secret for the backup credentials |
+| backups.secret.name | string | `""` | Name of the backup credentials secret |
 | backups.wal.compression | string | `"gzip"` | WAL compression method. One of `` (for no compression), `gzip`, `bzip2` or `snappy`. |
 | backups.wal.encryption | string | `"AES256"` | Whether to instruct the storage provider to encrypt WAL files. One of `` (use the storage container default), `AES256` or `aws:kms`. |
 | backups.wal.maxParallel | int | `1` | Number of WAL files to be archived or restored in parallel. |
@@ -165,7 +167,7 @@ refer to  the [CloudNativePG Documentation](https://cloudnative-pg.io/documentat
 | cluster.postgresGID | int | `26` | The GID of the postgres user inside the image, defaults to 26 |
 | cluster.postgresUID | int | `26` | The UID of the postgres user inside the image, defaults to 26 |
 | cluster.postgresql | object | `{}` | Configuration of the PostgreSQL server. See: https://cloudnative-pg.io/documentation/current/cloudnative-pg.v1/#postgresql-cnpg-io-v1-PostgresConfiguration |
-| cluster.primaryUpdateMethod | string | `"switchover"` | Method to follow to upgrade the primary server during a rolling update procedure, after all replicas have been successfully updated. It can be switchover (default) or in-place (restart). |
+| cluster.primaryUpdateMethod | string | `"switchover"` | Method to follow to upgrade the primary server during a rolling update procedure, after all replicas have been successfully updated. It can be switchover (default) or restart. |
 | cluster.primaryUpdateStrategy | string | `"unsupervised"` | Strategy to follow to upgrade the primary server during a rolling update procedure, after all replicas have been successfully updated: it can be automated (unsupervised - default) or manual (supervised) |
 | cluster.priorityClassName | string | `""` |  |
 | cluster.resources | object | `{}` | Resources requirements of every generated Pod. Please refer to https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/ for more information. We strongly advise you use the same setting for limits and requests so that your cluster pods are given a Guaranteed QoS. See: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/ |
@@ -173,6 +175,8 @@ refer to  the [CloudNativePG Documentation](https://cloudnative-pg.io/documentat
 | cluster.storage.size | string | `"8Gi"` |  |
 | cluster.storage.storageClass | string | `""` |  |
 | cluster.superuserSecret | string | `""` |  |
+| cluster.walStorage.size | string | `"1Gi"` |  |
+| cluster.walStorage.storageClass | string | `""` |  |
 | fullnameOverride | string | `""` | Override the full name of the chart |
 | mode | string | `"standalone"` | Cluster mode of operation. Available modes: * `standalone` - default mode. Creates new or updates an existing CNPG cluster. * `replica` - Creates a replica cluster from an existing CNPG cluster. # TODO * `recovery` - Same as standalone but creates a cluster from a backup, object store or via pg_basebackup. |
 | nameOverride | string | `""` | Override the name of the chart |
@@ -210,6 +214,8 @@ refer to  the [CloudNativePG Documentation](https://cloudnative-pg.io/documentat
 | recovery.s3.path | string | `"/"` |  |
 | recovery.s3.region | string | `""` |  |
 | recovery.s3.secretKey | string | `""` |  |
+| recovery.secret.create | bool | `true` | Whether to create a secret for the backup credentials |
+| recovery.secret.name | string | `""` | Name of the backup credentials secret |
 | type | string | `"postgresql"` | Type of the CNPG database. Available types: * `postgresql` * `postgis` |
 
 ## Maintainers
