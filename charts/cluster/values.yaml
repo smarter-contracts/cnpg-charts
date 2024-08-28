@@ -30,6 +30,8 @@ recovery:
     # -- Time in RFC3339 format
     time: ""
 
+  source: ""
+
   ##
   # -- Backup Recovery Method
   backupName: ""  # Name of the backup to recover from. Required if method is `backup`.

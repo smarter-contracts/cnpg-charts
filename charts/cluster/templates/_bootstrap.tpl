@@ -32,7 +32,13 @@ bootstrap:
     backup:
       name: {{ .Values.recovery.backupName }}
     {{- else if eq .Values.recovery.method "object_store" }}
-    source: objectStoreRecoveryCluster
+    source: "{{ .Values.recovery.source | default "objectStoreRecoveryCluster" }}"
+    {{- end }}
+    {{- with .Values.recovery.database }}
+    database: {{ . }}
+    {{- end }}
+    {{- with .Values.recovery.owner }}
+    owner: {{ . }}
     {{- end }}
     {{- with .Values.recovery.database }}
     database: {{ . }}
@@ -42,7 +48,7 @@ bootstrap:
     {{- end }}
 
 externalClusters:
-  - name: objectStoreRecoveryCluster
+  - name: "{{ .Values.recovery.source | default "objectStoreRecoveryCluster" }}"
     barmanObjectStore:
       serverName: {{ default (include "cluster.fullname" .) .Values.recovery.clusterName }}
       {{- $d := dict "chartFullname" (include "cluster.fullname" .) "scope" .Values.recovery "secretPrefix" "recovery" -}}
