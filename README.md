@@ -1,5 +1,9 @@
 # CloudNativePG Helm Charts
 
+# NOTE: Fork of github.com/cloudnative-pg/charts
+
+This is a fork of the official CNPG helm chart for SC use.
+
 ## Operator chart
 
 Helm chart to install the
