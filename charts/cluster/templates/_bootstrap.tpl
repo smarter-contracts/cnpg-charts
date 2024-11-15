@@ -95,7 +95,7 @@ externalClusters:
       targetImmediate: {{ . }}
       {{- end }}
       {{- with .Values.recovery.pitrTarget.tli }}
-      targetTLI: {{ . }}
+      targetTLI: {{ . | quote }}
       {{- end }}   
        
 
